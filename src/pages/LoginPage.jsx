@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockUsers } from '../data/mockUsers';
 
@@ -11,6 +11,14 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+// --- 1. เพิ่มระบบตรวจสอบขนาดหน้าจอแบบ Real-time ---
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleLogin = () => {
     const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
@@ -27,73 +35,68 @@ const LoginPage = () => {
   };
 
   return (
-    
-    <div className="h-[100dvh] w-full flex items-center justify-center overflow-hidden">
+
+<div className="w-full h-[100dvh] relative flex items-center justify-center overflow-hidden origin-center">
       
-      
-     <div className="relative w-full h-[100dvh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
-          style={{ backgroundImage: `url(${bgMobile})` }}
-        />
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat hidden md:block"
-          style={{ backgroundImage: `url(${bgDesktop})` }}
-        />
+      {/* --- 3. ส่วน Background: สลับรูปตาม windowWidth --- */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
+        style={{ 
+          backgroundImage: `url(${windowWidth >= 768 ? bgDesktop : bgMobile})` 
+        }}
+      />
 
-    
-        <div className="relative z-10 bg-[#7b74c4]/90 backdrop-blur-md w-full max-w-[370px] md:max-w-[420px] rounded-[40px] shadow-2xl p-8 md:p-10 text-center border border-white/20 mx-6">
-          
-          <div className="mb-6 md:mb-8 flex justify-center">
-            <img 
-              src={logoLogin} 
-              alt="Logo" 
-              className="w-[75%] md:w-[85%] h-auto object-contain" 
-            />
-          </div>
-          
-          <div className="space-y-4 text-left">
-            <label className="block text-white text-xs md:text-sm font-medium mb-1 pl-4 opacity-90">
-              Enter your email
-            </label>
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              className="w-full bg-[#a9a4e4] text-white placeholder-white/70 px-6 py-3 md:py-3.5 rounded-full outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-md"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="w-full bg-[#a9a4e4] text-white placeholder-white/70 px-6 py-3 md:py-3.5 rounded-full outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-md"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <button 
-            onClick={handleLogin}
-            className="w-full mt-6 md:mt-8 bg-[#2d2859] hover:bg-[#1e1a3d] text-white font-bold py-3 md:py-3.5 rounded-full shadow-xl transition-all active:scale-95"
-          >
-            Login
-          </button>
-
-          <div className="mt-6 text-xs md:text-sm text-white/90 space-y-2">
-            <p className="cursor-pointer hover:underline">forgot your password?</p>
-            <p>
-              Not have one ?{' '}
-              <span 
-                className="font-extrabold underline cursor-pointer hover:text-white" 
-                onClick={() => navigate('/register')}
-              >
-                Register
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
+  {/* ปรับตรงนี้: เพิ่ม scale-100  */}
+  <div className="my-[20px] relative z-10 bg-[#7b74c4]/90 backdrop-blur-md w-full max-w-[370px] md:max-w-[420px] rounded-[40px] shadow-2xl p-8 md:p-10 text-center border border-white/20 mx-6 transform scale-100">
+    <div className="mb-6 md:mb-8 flex justify-center">
+      <img 
+        src={logoLogin} 
+        alt="Logo" 
+        className="w-[75%] md:w-[85%] h-auto object-contain" 
+      />
     </div>
+    
+    <div className="space-y-4 text-left">
+      <label className="block text-white text-xs md:text-sm font-medium mb-1 pl-4 opacity-90">
+        Enter your email
+      </label>
+      <input
+        type="email"
+        placeholder="Enter your email address"
+        className="w-full bg-[#a9a4e4] text-white placeholder-white/70 px-6 py-3 md:py-3.5 rounded-full outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-md"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Enter your password"
+        className="w-full bg-[#a9a4e4] text-white placeholder-white/70 px-6 py-3 md:py-3.5 rounded-full outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-md"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+    </div>
+
+    <button 
+      onClick={handleLogin}
+      className="w-full mt-6 md:mt-8 bg-[#2d2859] hover:bg-[#1e1a3d] text-white font-bold py-3 md:py-3.5 rounded-full shadow-xl transition-all active:scale-95"
+    >
+      Login
+    </button>
+
+    <div className="mt-6 text-xs md:text-sm text-white/90 space-y-2">
+      <p className="cursor-pointer hover:underline">forgot your password?</p>
+      <p>
+        Not have one ?{' '}
+        <span 
+          className="font-extrabold underline cursor-pointer hover:text-white" 
+          onClick={() => navigate('/register')}
+        >
+          Register
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
   );
 };
 

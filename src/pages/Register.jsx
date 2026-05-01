@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authContent, mockUsers } from '../data/mockUsers';
+import { mockUsers } from '../data/mockUsers';
+
+// --- Import รูปภาพตาม Path ของคุณ ---
+import bgDesktop from "../assets/images/bg_pages_register_destop.png";
+import bgMobile from "../assets/images/bg_pages_register_mobile.png";
+import imgRegisterDesktop from "../assets/images/img_register_desktop.png";
 
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    address: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    address: '', email: '', password: '', confirmPassword: ''
   });
-
-  // --- ระบบ CAPTCHA State ---
   const [captcha, setCaptcha] = useState({ num1: 0, num2: 0, userAnswer: '' });
   const [captchaError, setCaptchaError] = useState('');
 
-  // ฟังก์ชันสุ่มโจทย์เลขใหม่
   const generateCaptcha = () => {
     const n1 = Math.floor(Math.random() * 10) + 1;
     const n2 = Math.floor(Math.random() * 10) + 1;
@@ -23,11 +22,7 @@ const Register = () => {
     setCaptchaError('');
   };
 
-  // สุ่มโจทย์ครั้งแรกเมื่อโหลดหน้าเว็บ
-  useEffect(() => {
-    generateCaptcha();
-  }, []);
-  // -------------------------
+  useEffect(() => { generateCaptcha(); }, []);
 
   const handleChange = (e) => {
     if (e.target.name === 'userAnswer') {
@@ -39,103 +34,103 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // 1. ตรวจสอบ CAPTCHA
     if (parseInt(captcha.userAnswer) !== captcha.num1 + captcha.num2) {
-      setCaptchaError('Captcha incorrect! Please try again.');
-      generateCaptcha(); // สุ่มโจทย์ใหม่ทันทีถ้าตอบผิด
+      setCaptchaError('Incorrect!');
+      generateCaptcha();
       return;
     }
-
-    // 2. ตรวจสอบรหัสผ่าน
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-
-    // 3. บันทึกข้อมูลลง LocalStorage (ตาม Logic เดิม)
     const storedUsers = JSON.parse(localStorage.getItem('users')) || mockUsers;
-    const newUser = {
-      id: storedUsers.length + 1,
-      email: formData.email,
-      password: formData.password,
-      address: formData.address,
-      role: 'buyer'
-    };
-
-    const updatedUsers = [...storedUsers, newUser];
-    localStorage.setItem('users', JSON.stringify(updatedUsers));
-
+    const newUser = { id: storedUsers.length + 1, ...formData, role: 'buyer' };
+    localStorage.setItem('users', JSON.stringify([...storedUsers, newUser]));
     alert("Registration Successful!");
-    navigate('/login'); 
+    navigate('/login');
   };
 
-// ส่วนแสดงผลใน Register.jsx
-return (
-  <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4 font-sans">
-    {/* ลด max-w-4xl เป็น max-w-3xl และจำกัดความสูงสูงสุดบน Desktop */}
-    <div className="flex flex-col md:flex-row w-full max-w-3xl bg-[#7D78D2] rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 md:max-h-[600px]">
-      
-      {/* Left Side Art - ลดขนาดสัดส่วนลง */}
-      <div className="hidden md:block md:w-[40%] bg-indigo-900">
-        <img 
-          src="https://via.placeholder.com/600x800" 
-          alt="Register Art" 
-          className="w-full h-full object-cover opacity-80"
-        />
-      </div>
+  return (
+    
+    <div className="w-full h-[100dvh] relative flex items-center justify-center overflow-hidden origin-center bg-cover bg-center bg-no-repeat md:bg-[url('/path-to-your-desktop-bg.png')] bg-[url('/path-to-your-mobile-bg.png')]">
 
-      {/* Right Side Form - ลด Padding และขนาด Element */}
-      <div className="w-full md:w-[60%] p-6 md:p-10 flex flex-col justify-center text-white overflow-y-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
-          {authContent.registerTitle}
-        </h2>
+    <div 
+    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
+    style={{ 
+      backgroundImage: `url(${window.innerWidth >= 768 ? bgDesktop : bgMobile})` 
+    }}
+  />  
 
-        <form onSubmit={handleSubmit} className="space-y-3">
-          {/* ปรับขนาด Input ให้กะทัดรัดขึ้น */}
-          <input type="text" name="address" placeholder={authContent.placeholders.address} className="w-full p-3 rounded-xl bg-[#ABA7EB] placeholder-white/70 text-white outline-none focus:ring-2 focus:ring-white/50 text-sm" value={formData.address} onChange={handleChange} required />
-          <input type="email" name="email" placeholder={authContent.placeholders.email} className="w-full p-3 rounded-xl bg-[#ABA7EB] placeholder-white/70 text-white outline-none focus:ring-2 focus:ring-white/50 text-sm" value={formData.email} onChange={handleChange} required />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input type="password" name="password" placeholder="Password" className="w-full p-3 rounded-xl bg-[#ABA7EB] placeholder-white/70 text-white outline-none focus:ring-2 focus:ring-white/50 text-sm" value={formData.password} onChange={handleChange} required />
-            <input type="password" name="confirmPassword" placeholder="Confirm" className="w-full p-3 rounded-xl bg-[#ABA7EB] placeholder-white/70 text-white outline-none focus:ring-2 focus:ring-white/50 text-sm" value={formData.confirmPassword} onChange={handleChange} required />
-          </div>
+     
+      <div className="scale-90 relative z-10 bg-[#8b84d7] w-full max-w-[400px] md:max-w-[850px] min-h-[500px] md:min-h-[600px] h-auto rounded-[30px] md:rounded-[40px] shadow-2xl flex flex-col md:flex-row overflow-hidden border border-white/10 mx-auto my-auto py-10 px-6 md:p-0">
+        
+       
+        <div className="hidden md:block w-1/2 p-6">
+          <img 
+            src={imgRegisterDesktop} 
+            alt="Taxi" 
+            className="w-full h-full object-cover rounded-[30px]"
+          />
+        </div>
 
-          {/* CAPTCHA - ปรับขนาดให้เล็กลง */}
-          <div className="bg-[#5C57B0] p-3 rounded-xl border border-white/20">
-            <label className="block text-[10px] uppercase tracking-wider mb-1 opacity-80">Human Check</label>
-            <div className="flex items-center gap-3">
-              <span className="text-lg font-mono font-bold bg-[#7D78D2] px-3 py-1 rounded-lg border border-dashed border-white/30">
-                {captcha.num1}+{captcha.num2}
+        
+        <div className="w-full md:w-1/2 p-0 md:p-10 flex flex-col justify-center text-white">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-8 md:mb-10 text-[#1e1a3d]">Register</h2>
+
+         
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input 
+              type="text" name="address" placeholder="Enter your address" 
+              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/60 text-white outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-inner"
+              value={formData.address} onChange={handleChange} required 
+            />
+            
+            <input 
+              type="email" name="email" placeholder="Enter your email address" 
+              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/60 text-white outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-inner"
+              value={formData.email} onChange={handleChange} required 
+            />
+            <input 
+              type="password" name="password" placeholder="Enter your password" 
+              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/60 text-white outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-inner"
+              value={formData.password} onChange={handleChange} required 
+            />
+            <input 
+              type="password" name="confirmPassword" placeholder="Enter password confirmation" 
+              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/60 text-white outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-inner"
+              value={formData.confirmPassword} onChange={handleChange} required 
+            />
+
+            {/* Captcha - เหมือนเดิมแต่ปรับ padding นิดหน่อย */}
+            <div className="flex items-center gap-3 bg-[#1e1a3d]/20 p-2.5 rounded-full">
+              <span className="bg-[#1e1a3d] px-4 py-1 rounded-full font-bold text-sm">
+                {captcha.num1} + {captcha.num2} =
               </span>
               <input
-                type="number"
-                name="userAnswer"
-                placeholder="?"
-                className="w-20 p-2 rounded-lg bg-white text-[#2D2A54] outline-none text-center font-bold"
-                value={captcha.userAnswer}
-                onChange={handleChange}
-                required
+                type="number" name="userAnswer" placeholder="?"
+                className="w-16 p-2 rounded-lg bg-white text-[#1e1a3d] text-center font-bold outline-none"
+                value={captcha.userAnswer} onChange={handleChange} required
               />
             </div>
-            {captchaError && <p className="text-red-300 text-[10px] mt-1 italic">{captchaError}</p>}
-          </div>
 
-          <button
-            type="submit"
-            className="w-full py-3 mt-2 bg-[#2D2A54] hover:bg-[#1E1C3A] text-white font-bold rounded-xl shadow-lg transition-all active:scale-95"
-          >
-            Create Account
-          </button>
-        </form>
+            {/* ปุ่ม - ปรับ mt-4 และ font-extrabold */}
+            <button
+              type="submit"
+              className="w-full py-3.5 mt-4 bg-[#1e1a3d] hover:bg-[#2d2859] text-white font-extrabold rounded-full shadow-xl transition-all active:scale-95"
+            >
+              Create an account
+            </button>
+          </form>
 
-        <p className="mt-4 text-center text-xs text-white/70">
-          Already have one? <Link to="/login" className="font-bold underline hover:text-white">Login</Link>
-        </p>
+          {/* ลิงก์ด้านล่าง - ปรับ text-center md:text-left */}
+          <p className="mt-6 text-center text-xs md:text-sm">
+            Already have one? <Link to="/login" className="font-extrabold underline hover:text-white">Login</Link>
+          </p>
+        </div>
       </div>
-    </div>
+
   </div>
-);
+  );
 };
 
 export default Register;
