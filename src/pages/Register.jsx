@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { mockUsers } from '../data/mockUsers';
 
 // --- Import รูปภาพตาม Path ของคุณ ---
-import bgDesktop from "../assets/images/bg_pages_register_destop.png";
-import bgMobile from "../assets/images/bg_pages_register_mobile.png";
-import imgRegisterDesktop from "../assets/images/img_register_desktop.png";
+import bgDesktop from "../assets/images/t_bg_pages_register_destop.png";
+import bgMobile from "../assets/images/t_bg_pages_register_mobile.png";
+import imgRegisterDesktop from "../assets/images/t_texi_pages_register_desktop.png";
 
 const Register = () => {
   const navigate = useNavigate();

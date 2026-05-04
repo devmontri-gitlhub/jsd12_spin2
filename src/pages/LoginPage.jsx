@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { mockUsers } from '../data/mockUsers';
 
 // --- Import รูปภาพ ---
-import bgDesktop from "../assets/images/bg_pages_login_destop.jpg"; 
-import bgMobile from "../assets/images/bg_pages_login_moble.png"; 
-import logoLogin from "../assets/logos/Logo_login.png"; 
+import bgDesktop from "../assets/images/t_bg_pages_login_destop.jpg"; 
+import bgMobile from "../assets/images/t_bg_pages_login_moble.png"; 
+import logoLogin from "../assets/logos/t_logo_pages_login.png"; 
 
 const LoginPage = () => {
   const navigate = useNavigate();
