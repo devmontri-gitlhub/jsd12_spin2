@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { mockUsers } from '../data/mockUsers';
 
 // --- Import รูปภาพตาม Path ของคุณ ---
-import bgDesktop from "../assets/images/t_bg_pages_register_destop.png";
-import bgMobile from "../assets/images/t_bg_pages_register_mobile.png";
-import imgRegisterDesktop from "../assets/images/t_texi_pages_register_desktop.png";
+import bgDesktop from "../assets/images/t_pages_register_destop_bg.png";
+import bgMobile from "../assets/images/t_pages_register_mobile_bg.png";
+import imgRegisterDesktop from "../assets/images/t_pages_register_desktop_texi.png";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ useEffect(() => {
   />  
 
      
-      <div className="scale-90 relative z-10 bg-[#8b84d7]/60 w-full max-w-[400px] md:max-w-[1096px] min-h-[500px] md:min-h-[688px] h-auto rounded-[24px] md:rounded-[24px] shadow-2xl flex flex-col md:flex-row overflow-hidden border border-white/10 mx-auto mt-0 -translate-y-45 md:-translate-y-39 py-10 px-6 md:p-0">
+      <div className="scale-80 relative z-10 bg-[#8b84d7]/60 w-full max-w-[400px] md:max-w-[1096px] min-h-[500px] md:min-h-[688px] h-auto rounded-[24px] md:rounded-[24px] shadow-2xl flex flex-col md:flex-row overflow-hidden border border-white/10 mx-auto mt-0 -translate-y-50 md:-translate-y-43.5 py-10 px-6 md:p-0">
         
        
         <div className="hidden md:block w-1/2 p-6">

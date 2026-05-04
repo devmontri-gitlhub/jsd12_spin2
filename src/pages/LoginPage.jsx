@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { mockUsers } from '../data/mockUsers';
 
 // --- Import รูปภาพ ---
-import bgDesktop from "../assets/images/t_bg_pages_login_destop.jpg"; 
-import bgMobile from "../assets/images/t_bg_pages_login_moble.png"; 
-import logoLogin from "../assets/logos/t_logo_pages_login.png"; 
+import bgDesktop from "../assets/images/t_pages_login_destop_bg.jpg"; 
+import bgMobile from "../assets/images/t_pages_login_moble_bg.png"; 
+import logoLogin from "../assets/logos/t_pages_login_logo.png"; 
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const LoginPage = () => {
       />
 
   {/* ปรับตรงนี้: เพิ่ม scale-100  */}
-  <div className="scale-85 relative z-10 bg-[#7b74c4]/60 backdrop-blur-md w-full max-w-[540px] md:max-w-[648px] min-h-[600px] md:min-h-[709px] rounded-[40px] shadow-2xl p-8 md:p-10 text-center border border-white/20 mx-6 transform mx-auto mt-0 -translate-y-45 md:-translate-y-39">
+  <div className="scale-80 relative z-10 bg-[#7b74c4]/60 backdrop-blur-md w-full max-w-[540px] md:max-w-[648px] min-h-[600px] md:min-h-[709px] rounded-[40px] shadow-2xl p-8 md:p-10 text-center border border-white/20 mx-6 transform mx-auto mt-0 -translate-y-55 md:-translate-y-43.5">
     <div className="mb-6 md:mb-8 flex justify-center">
       <img 
         src={logoLogin} 
