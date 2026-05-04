@@ -36,18 +36,20 @@ const LoginPage = () => {
 
   return (
 
-<div className="w-full h-[100dvh] relative flex items-center justify-center overflow-hidden origin-center">
+<div className="fixed inset-0 h-[1000px] flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat md:bg-[url('/path-to-your-desktop-bg.png')] bg-[url('/path-to-your-mobile-bg.png')]">
       
       {/* --- 3. ส่วน Background: สลับรูปตาม windowWidth --- */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
         style={{ 
-          backgroundImage: `url(${windowWidth >= 768 ? bgDesktop : bgMobile})` 
+          backgroundImage: `url(${windowWidth >= 768 ? bgDesktop : bgMobile})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center' 
         }}
       />
 
   {/* ปรับตรงนี้: เพิ่ม scale-100  */}
-  <div className="my-[20px] relative z-10 bg-[#7b74c4]/80 backdrop-blur-md w-full max-w-[370px] md:max-w-[420px] rounded-[40px] shadow-2xl p-8 md:p-10 text-center border border-white/20 mx-6 transform scale-100">
+  <div className="scale-85 relative z-10 bg-[#7b74c4]/60 backdrop-blur-md w-full max-w-[540px] md:max-w-[648px] min-h-[600px] md:min-h-[709px] rounded-[40px] shadow-2xl p-8 md:p-10 text-center border border-white/20 mx-6 transform mx-auto mt-0 -translate-y-45 md:-translate-y-39">
     <div className="mb-6 md:mb-8 flex justify-center">
       <img 
         src={logoLogin} 
@@ -57,20 +59,22 @@ const LoginPage = () => {
     </div>
     
     <div className="space-y-4 text-left">
-      <label className="block text-white text-xs md:text-sm font-medium mb-1 pl-4 opacity-90">
+      <label className="block text-white !text-xl !md:text-2xl font-medium mb-1 pl-4 opacity-90">
         Enter your email
       </label>
+      
       <input
         type="email"
         placeholder="Enter your email address"
-        className="w-full bg-[#a9a4e4] text-white placeholder-white/70 px-6 py-3 md:py-3.5 rounded-full outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-md"
+        className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/80 text-white border-2 border-white outline-none focus:ring-4 focus:ring-white/50 text-sm shadow-lg"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+      
       <input
         type="password"
         placeholder="Enter your password"
-        className="w-full bg-[#a9a4e4] text-white placeholder-white/70 px-6 py-3 md:py-3.5 rounded-full outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-md"
+        className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/80 text-white border-2 border-white outline-none focus:ring-4 focus:ring-white/50 text-sm shadow-lg"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
@@ -78,7 +82,7 @@ const LoginPage = () => {
 
     <button 
       onClick={handleLogin}
-      className="w-full mt-6 md:mt-8 bg-[#2d2859] hover:bg-[#1e1a3d] text-white font-bold py-3 md:py-3.5 rounded-full shadow-xl transition-all active:scale-95"
+      className="w-full py-5 mt-4 bg-[#1e1a3d] hover:bg-[#2d2859] hover:brightness-150 text-white text-xl font-bold rounded-full shadow-xl transition-all active:scale-95"
     >
       Login
     </button>

@@ -64,7 +64,7 @@ useEffect(() => {
 
   return (
     
-    <div className="fixed inset-0 w-full w-full h-[1000px] flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat md:bg-[url('/path-to-your-desktop-bg.png')] bg-[url('/path-to-your-mobile-bg.png')]">
+    <div className="fixed inset-0  w-full h-[1000px] flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat md:bg-[url('/path-to-your-desktop-bg.png')] bg-[url('/path-to-your-mobile-bg.png')]">
     <div 
     className="absolute inset-0 bg-cover bg-no-repeat transition-all duration-500"
     style={{ 
@@ -75,7 +75,7 @@ useEffect(() => {
   />  
 
      
-      <div className="scale-90 relative z-10 bg-[#8b84d7]/90 w-full max-w-[400px] md:max-w-[1096px] min-h-[500px] md:min-h-[688px] h-auto rounded-[24px] md:rounded-[24px] shadow-2xl flex flex-col md:flex-row overflow-hidden border border-white/10 mx-auto mt-0 -translate-y-45 md:-translate-y-39 py-10 px-6 md:p-0">
+      <div className="scale-90 relative z-10 bg-[#8b84d7]/60 w-full max-w-[400px] md:max-w-[1096px] min-h-[500px] md:min-h-[688px] h-auto rounded-[24px] md:rounded-[24px] shadow-2xl flex flex-col md:flex-row overflow-hidden border border-white/10 mx-auto mt-0 -translate-y-45 md:-translate-y-39 py-10 px-6 md:p-0">
         
        
         <div className="hidden md:block w-1/2 p-6">
