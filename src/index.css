@@ -51,8 +51,12 @@
   }
 }
 
-body {
-  margin: 0;
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  overflow-x: hidden; /* ป้องกันการเลื่อนซ้ายขวาที่อาจทำให้เห็นขอบขาว */
 }
 
 #root {

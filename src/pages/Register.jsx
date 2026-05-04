@@ -15,6 +15,18 @@ const Register = () => {
   const [captcha, setCaptcha] = useState({ num1: 0, num2: 0, userAnswer: '' });
   const [captchaError, setCaptchaError] = useState('');
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+
+useEffect(() => {
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+
+
+
   const generateCaptcha = () => {
     const n1 = Math.floor(Math.random() * 10) + 1;
     const n2 = Math.floor(Math.random() * 10) + 1;
@@ -52,17 +64,18 @@ const Register = () => {
 
   return (
     
-    <div className="w-full h-[100dvh] relative flex items-center justify-center overflow-hidden origin-center bg-cover bg-center bg-no-repeat md:bg-[url('/path-to-your-desktop-bg.png')] bg-[url('/path-to-your-mobile-bg.png')]">
-
+    <div className="fixed inset-0 w-full w-full h-[1000px] flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat md:bg-[url('/path-to-your-desktop-bg.png')] bg-[url('/path-to-your-mobile-bg.png')]">
     <div 
-    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
+    className="absolute inset-0 bg-cover bg-no-repeat transition-all duration-500"
     style={{ 
-      backgroundImage: `url(${window.innerWidth >= 768 ? bgDesktop : bgMobile})` 
+      backgroundImage: `url(${window.innerWidth >= 768 ? bgDesktop : bgMobile})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center' 
     }}
   />  
 
      
-      <div className="scale-90 relative z-10 bg-[#8b84d7] w-full max-w-[400px] md:max-w-[850px] min-h-[500px] md:min-h-[600px] h-auto rounded-[30px] md:rounded-[40px] shadow-2xl flex flex-col md:flex-row overflow-hidden border border-white/10 mx-auto my-auto py-10 px-6 md:p-0">
+      <div className="scale-90 relative z-10 bg-[#8b84d7]/90 w-full max-w-[400px] md:max-w-[1096px] min-h-[500px] md:min-h-[688px] h-auto rounded-[24px] md:rounded-[24px] shadow-2xl flex flex-col md:flex-row overflow-hidden border border-white/10 mx-auto mt-0 -translate-y-45 md:-translate-y-39 py-10 px-6 md:p-0">
         
        
         <div className="hidden md:block w-1/2 p-6">
@@ -75,34 +88,52 @@ const Register = () => {
 
         
         <div className="w-full md:w-1/2 p-0 md:p-10 flex flex-col justify-center text-white">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-8 md:mb-10 text-[#1e1a3d]">Register</h2>
+          <h2 className="!text-[48px] !font-bold !text-center mb-8 md:mb-10 !text-[#ffffff] mx-auto mt-0 -translate-y-5 md:-translate-y-5">
+            Register
+          </h2>
 
          
           <form onSubmit={handleSubmit} className="space-y-4">
             <input 
-              type="text" name="address" placeholder="Enter your address" 
-              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/60 text-white outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-inner"
-              value={formData.address} onChange={handleChange} required 
-            />
+                type="text" 
+                name="address" 
+                placeholder="Enter your address" 
+                className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/80 text-white border-2 border-white outline-none focus:ring-4 focus:ring-white/50 text-sm shadow-lg"
+                value={formData.address} 
+                onChange={handleChange} 
+                required 
+              />
             
             <input 
-              type="email" name="email" placeholder="Enter your email address" 
-              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/60 text-white outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-inner"
-              value={formData.email} onChange={handleChange} required 
+              type="email" 
+              name="email" 
+              placeholder="Enter your email address" 
+              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/80 text-white border-2 border-white outline-none focus:ring-4 focus:ring-white/50 text-sm shadow-lg"
+              value={formData.email} 
+              onChange={handleChange} 
+              required 
             />
             <input 
-              type="password" name="password" placeholder="Enter your password" 
-              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/60 text-white outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-inner"
-              value={formData.password} onChange={handleChange} required 
+              type="password" 
+              name="password" 
+              placeholder="Enter your password" 
+              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/80 text-white border-2 border-white outline-none focus:ring-4 focus:ring-white/50 text-sm shadow-lg"
+              value={formData.password} 
+              onChange={handleChange} 
+              required 
             />
             <input 
-              type="password" name="confirmPassword" placeholder="Enter password confirmation" 
-              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/60 text-white outline-none focus:ring-2 focus:ring-white/40 text-sm shadow-inner"
-              value={formData.confirmPassword} onChange={handleChange} required 
+              type="password" 
+              name="confirmPassword" 
+              placeholder="Enter password confirmation" 
+              className="w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/80 text-white border-2 border-white outline-none focus:ring-4 focus:ring-white/50 text-sm shadow-lg"
+              value={formData.confirmPassword} 
+              onChange={handleChange} 
+              required 
             />
 
             {/* Captcha - เหมือนเดิมแต่ปรับ padding นิดหน่อย */}
-            <div className="flex items-center gap-3 bg-[#1e1a3d]/20 p-2.5 rounded-full">
+            <div className="flex items-center justify-center gap-3 bg-[#1e1a3d]/70 p-2.5 rounded-full">
               <span className="bg-[#1e1a3d] px-4 py-1 rounded-full font-bold text-sm">
                 {captcha.num1} + {captcha.num2} =
               </span>
@@ -116,14 +147,14 @@ const Register = () => {
             {/* ปุ่ม - ปรับ mt-4 และ font-extrabold */}
             <button
               type="submit"
-              className="w-full py-3.5 mt-4 bg-[#1e1a3d] hover:bg-[#2d2859] text-white font-extrabold rounded-full shadow-xl transition-all active:scale-95"
+              className="w-full py-5 mt-4 bg-[#1e1a3d] hover:bg-[#2d2859] hover:brightness-150 text-white text-xl font-bold rounded-full shadow-xl transition-all active:scale-95"
             >
               Create an account
             </button>
           </form>
 
           {/* ลิงก์ด้านล่าง - ปรับ text-center md:text-left */}
-          <p className="mt-6 text-center text-xs md:text-sm">
+          <p className="text-center text-xs md:text-sm mx-auto mt-0 translate-y-5 md:translate-y-2.5">
             Already have one? <Link to="/login" className="font-extrabold underline hover:text-white">Login</Link>
           </p>
         </div>

@@ -47,7 +47,7 @@ const LoginPage = () => {
       />
 
   {/* ปรับตรงนี้: เพิ่ม scale-100  */}
-  <div className="my-[20px] relative z-10 bg-[#7b74c4]/90 backdrop-blur-md w-full max-w-[370px] md:max-w-[420px] rounded-[40px] shadow-2xl p-8 md:p-10 text-center border border-white/20 mx-6 transform scale-100">
+  <div className="my-[20px] relative z-10 bg-[#7b74c4]/80 backdrop-blur-md w-full max-w-[370px] md:max-w-[420px] rounded-[40px] shadow-2xl p-8 md:p-10 text-center border border-white/20 mx-6 transform scale-100">
     <div className="mb-6 md:mb-8 flex justify-center">
       <img 
         src={logoLogin} 
