@@ -21,6 +21,25 @@ const LoginPage = () => {
   }, []);
 
   const handleLogin = () => {
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      alert("Please enter your email.");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      alert("Invalid email format. Please include '@' and '.' (e.g., user@example.com)");
+      return;
+    }
+
+
+  if (!password) {
+      alert("Please enter your password.");
+      return;
+    }
+
+
     const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
     const allUsers = [...mockUsers, ...storedUsers];
     const user = allUsers.find((u) => u.email === email && u.password === password);
