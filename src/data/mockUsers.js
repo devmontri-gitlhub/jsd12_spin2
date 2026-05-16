@@ -2,7 +2,7 @@ export const mockUsers = [
   {
     id: 1,
     email: "ddd@ddd.com",
-    password: "1234",
+    password: "ddd@ddd.com",
     address: "123/45 Bangkok",
     role: "buyer" // สถานะเริ่มต้นเป็นผู้ซื้อ
   },

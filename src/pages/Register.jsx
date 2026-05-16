@@ -16,6 +16,8 @@ const Register = () => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+const [isSuccess, setIsSuccess] = useState(false);
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
@@ -71,21 +73,22 @@ const Register = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (!validate()) {
-      if (parseInt(captcha.userAnswer) !== captcha.num1 + captcha.num2) {
-        generateCaptcha();
-      }
-      return;
-    }
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  if (!validate()) return;
 
-    const storedUsers = JSON.parse(localStorage.getItem('users')) || mockUsers;
-    const newUser = { id: storedUsers.length + 1, ...formData, role: 'buyer' };
-    localStorage.setItem('users', JSON.stringify([...storedUsers, newUser]));
-    alert("Registration Successful!");
-    navigate('/login');
+  if (parseInt(captcha.userAnswer) !== captcha.num1 + captcha.num2) {
+    setCaptchaError('Incorrect!');
+    generateCaptcha();
+    return;
+  }
+
+  const storedUsers = JSON.parse(localStorage.getItem('users')) || mockUsers;
+  const newUser = { id: storedUsers.length + 1, ...formData, role: 'buyer' };
+  localStorage.setItem('users', JSON.stringify([...storedUsers, newUser]));
+
+  // --- แทนที่ alert ด้วยการเปิด Popup ของเราเอง ---
+  setIsSuccess(true);
   };
 
   return (
@@ -190,6 +193,37 @@ const Register = () => {
           </p>
         </div>
       </div>
+
+{isSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in">
+          <div className="bg-[#7b74c4] border border-white/20 p-8 rounded-[32px] w-full max-w-[400px] text-center shadow-2xl mx-4 transform scale-100 transition-all duration-300">
+            
+            {/* ไอคอนเครื่องหมายถูกวงกลมดีไซน์โมเดิร์น */}
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-500/20 text-green-400 mb-6 border border-green-500/30">
+              <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+
+            {/* ข้อความแจ้งเตือน */}
+            <h3 className="text-2xl font-bold text-white mb-2 -translate-y-3 md:-translate-y-3">
+              Registration Successful!
+            </h3>
+            <p className="text-white/80 text-sm mb-6 -translate-y-3.5 md:-translate-y-3.5">
+              Your account has been created successfully.
+            </p>
+
+            {/* ปุ่มกดเพื่อไปหน้า Login */}
+            <button
+              onClick={() => navigate('/login')}
+              className="w-full py-3 bg-[#1e1a3d] hover:bg-[#2d2859] hover:brightness-120 text-white font-bold rounded-full shadow-lg transition-all active:scale-95 text-base"
+            >
+              Go to Login
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
