@@ -123,7 +123,8 @@ const LoginPage = () => {
         </button>
 
         <div className="mt-6 text-xs md:text-sm text-white/90 space-y-2">
-          <p className="cursor-pointer hover:underline">forgot your password?</p>
+          <p className="cursor-pointer hover:underline" 
+  onClick={() => navigate('/forgot-password')}>forgot your password?</p>
           <p>
             Not have one ?{' '}
             <span 

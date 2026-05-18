@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Register from './pages/Register';
 import LoginPage from './pages/LoginPage';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 /* ---Start : การใช้งาน Router --- */
@@ -22,7 +24,10 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<LoginPage />} />
-      </Route>
+          {/* แก้ไขเพิ่มเติม: เพิ่ม Route สำหรับหน้าลืมรหัสผ่านและรีเซ็ตรหัสผ่านภายใต้ MainLayout */}
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

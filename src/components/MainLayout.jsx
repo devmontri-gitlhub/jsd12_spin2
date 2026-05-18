@@ -24,7 +24,8 @@ const MainLayout = () => {
     window.location.href = '/login'; // เคลียร์สถานะด้วยการรีโหลดไปหน้า login
   };
 
-  const hideNavbarPaths = ['/login', '/register'];
+  // แก้ไขจุดนี้: เพิ่ม '/forgot-password' และ '/reset-password' เข้าไปใน Array เพื่อสั่งซ่อนแถบเมนู Navbar
+  const hideNavbarPaths = ['/login', '/register', '/forgot-password', '/reset-password'];
   const showNavbar = !hideNavbarPaths.includes(location.pathname);
 
   return (
@@ -42,7 +43,7 @@ const MainLayout = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* ใช้เครื่องหมาย ? หลัง currentUser เพื่อป้องกัน Error หน้าจอขาว[cite: 7] */}
+              {/* ใช้เครื่องหมาย ? หลัง currentUser เพื่อป้องกัน Error หน้าจอขาว */}
               {currentUser ? (
                 <div className="flex items-center space-x-3">
                   <div className="text-right hidden sm:block">
