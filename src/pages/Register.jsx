@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { mockUsers } from '../data/mockUsers';
+//import { mockUsers } from '../data/mockUsers';
 
 import bgDesktop from "../assets/images/t_pages_register_destop_bg.png";
 import bgMobile from "../assets/images/t_pages_register_mobile_bg.png";
@@ -9,7 +9,7 @@ import imgRegisterDesktop from "../assets/images/t_pages_register_desktop_texi.p
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    address: '', email: '', password: '', confirmPassword: ''
+    email: '', password: '', confirmPassword: ''
   });
   const [captcha, setCaptcha] = useState({ num1: 0, num2: 0, userAnswer: '' });
   const [errors, setErrors] = useState({});
@@ -46,7 +46,6 @@ const Register = () => {
 
   const validate = () => {
     let newErrors = {};
-    if (!formData.address.trim()) newErrors.address = "Please enter your address!!";
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
@@ -119,17 +118,6 @@ const Register = () => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="relative pb-2">
-              <input 
-                type="text" 
-                name="address" 
-                placeholder="Enter your address" 
-                className={`w-full px-6 py-3 md:py-3.5 rounded-full bg-[#a9a4e4] placeholder-white/80 text-white border-2 outline-none focus:ring-4 focus:ring-white/50 text-sm shadow-lg ${errors.address ? 'border-red-500' : 'border-white'}`}
-                value={formData.address} 
-                onChange={handleChange} 
-              />
-              {errors.address && <p className="absolute left-1/2 -translate-x-1/2 -bottom-1 z-20 px-3 py-0 text-[14px] font-bold text-red-600 bg-white rounded-md border border-red-200 shadow-sm transition-all duration-300 mt-0 translate-y-2 md:translate-y-2 whitespace-nowrap leading-tight ">{errors.address}</p>}
-            </div>
             
             <div className="relative pb-2">
               <input 
